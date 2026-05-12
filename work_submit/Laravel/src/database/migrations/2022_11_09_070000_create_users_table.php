@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('role');
             $table->softDeletes();
             $table->integer('status');
+            $table->string('name_kana');
         });
     }
 

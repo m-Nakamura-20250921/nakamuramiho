@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,6 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.'], function(){
   // 商品登録画面
   Route::get('/product/add', 'admin\ProductController@add')->name('product.add');
 });
+
+// ログイン画面
+Route::get('/login',[LoginController::class,'login']) -> name('login');
