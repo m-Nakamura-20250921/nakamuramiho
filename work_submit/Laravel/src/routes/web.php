@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,6 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.'], function(){
 
 // ログイン画面
 Route::get('/login',[LoginController::class,'login']) -> name('login');
+
+// 会員登録画面
+Route::get('/register',[RegisterController::class,'showregister']) -> name('register.form');
