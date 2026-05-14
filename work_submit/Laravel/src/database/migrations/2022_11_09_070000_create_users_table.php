@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->integer('role');
             $table->softDeletes();
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->string('name_kana');
         });
     }

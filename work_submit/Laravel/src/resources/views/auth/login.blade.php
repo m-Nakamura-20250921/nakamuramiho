@@ -13,7 +13,7 @@
 <body>
   <div id="content">
     <h1 class="login_title">ログイン</h1>
-    <form method="post" action="{{route('login')}}">
+     <form method="post" action="{{route('login')}}">
       @if ($errors->has('password'))
         <p class="error">{{ $errors->first('password') }}</p>
       @endif
