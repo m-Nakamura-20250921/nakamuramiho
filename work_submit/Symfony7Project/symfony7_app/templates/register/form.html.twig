@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}会員登録画面{% endblock %}
+
+{% block body %}
+<!-- <style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style> -->
+
+<div class="example-wrapper">
+    <h1>会員登録</h1>
+    <!-- 名前 -->
+    <div class="input_row">
+        <div class="div_w_95">
+            <label class ="input_label" for="name">名前</label>
+            <input class="text_input" type="text" name="name" id="name"
+            value="" required min:2 max:30>
+        </div>
+    </div>
+
+    <!-- 名前（カナ） -->
+    <div class="input_row">
+        <div class="div_w_95">
+            <label class="input_label" for="name">名前（カナ）</label>
+            <input class="text_input" type="text" name="name_kana" id="name_kana"
+            value="">
+        </div>
+    </div>
+
+    <!-- メールアドレス -->
+    <div class="input_row">
+        <label class="input_label" for="email">メールアドレス</label>
+        <input class="text_input_w100" id="email" type="email" name="email"
+        value="{{old ('email')}}" required>
+    </div>
+</div>
+{% endblock %}
