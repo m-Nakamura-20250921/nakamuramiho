@@ -61,7 +61,7 @@
       <!-- パスワード（確認） -->
       <div class="input_row">
         <label class="input_label" for="password_confirm">パスワード（確認）</label>
-        <input class="text_input_w100" id="password_confirm" type="password" name="password">
+        <input class="text_input_w100" id="password_confirm" type="password" name="password_confirm">
         <div id="js-error-confirm" class="error_message"></div>
         @error('password')
           <div class ="error_message">{{$message}}</div>

@@ -33,5 +33,10 @@ class LoginController extends Controller
             // 一般ユーザー
             return redirect() -> route('user');
         }
+
+        // エラー
+        return back()->withErrors([
+            'password' => 'パスワードが異なります。正しいパスワードを入力してください。',
+        ])->withInput();
     }
 }

@@ -14,33 +14,31 @@
   <div id="content">
     <h1 class="login_title">ログイン</h1>
      <form method="post" action="{{route('login')}}">
-      @if ($errors->has('password'))
-        <p class="error">{{ $errors->first('password') }}</p>
-      @endif
-
-      @if ($errors->has('email'))
-        <p class='error'>{{$errors->first('email')}}</p>
-      @endif
 
       @csrf
 
       <div class="input_row">
         <label class="input_label" for="email">メールアドレス</label>
-        <input class="text_input" id="email" name="email" type="email" value="{{old('email')}}">
+        <input class="text_input" id="email" name="email" type="email" value="{{old('email')}}" required>
+        @if ($errors->has('email'))
+          <p class='error'>{{$errors->first('email')}}</p>
+        @endif
       </div>
 
       <div class="input_row">
         <label class="input_label" for="password">パスワード</label>
         <div class="input-group">
           <!-- 入力欄 -->
-          <input class="text_input form-control" id="password" type="password" name="password">
+          <input class="text_input form-control" id="password" type="password" name="password" required>
 
           <!-- 表示・非表示アイコン -->
           <button class="btn btn-outline-secondary" type="button" id="toggle-password">
             <i class="bi bi-eye" id="eye_icon"></i>
           </button>
-
         </div>
+        @if ($errors->has('password'))
+          <div class="error">{{ $errors->first('password') }}</div>
+        @endif
       </div>
 
       <input class="submit_btn" type="submit" value="ログイン">
