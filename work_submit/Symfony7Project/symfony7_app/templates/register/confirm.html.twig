@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}会員登録確認{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>以下の内容で登録します</h1>
+
+    {{ form_start(confirm_form) }}
+        {{ form_row(confirm_form._token) }}
+
+        <div class="input_row">
+            <span class="input_label">名前：</span>
+            {{ confirm_form.name.vars.value }}
+        </div>
+
+        <div class="input_row">
+            <span class="input_label">名前（カナ）：</span>
+            {{ confirm_form.name_kana.vars.value }}
+        </div>
+
+        <div class="input_row">
+            <span class="input_label">メールアドレス：</span>
+            {{ confirm_form.email.vars.value }}
+        </div>
+
+        <div class="buttons_area" style="margin-top: 20px;">
+            <button type="submit" name="submit_action" value="complete" class="submit_btn">登録</button>
+            <button type="submit" name="submit_action" value="back" class="submit_btn">戻る</button>
+        </div>
+    {{ form_end(confirm_form, { 'render_rest': false }) }}
+</div>
+{% endblock %}

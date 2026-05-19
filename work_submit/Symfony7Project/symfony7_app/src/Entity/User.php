@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -25,6 +26,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         maxMessage:'30文字以下で記入してください',
     )]
     private ?string $name = null;
+
+    #[ORM\Column(length: 255)] 
+    #[Assert\NotBlank(message: '名前（カナ）を記入してください')]
+    #[Assert\Regex(
+        pattern: '/^[ァ-ヶー]+$/u',
+        message: '全角カタカナで記入してください',
+    )]
+    #[Assert\Length(
+        min:3,
+        max:50,
+        minMessage:'3文字以上で記入してください',
+        maxMessage:'50文字以下で記入してください',
+    )]
+    private ?string $name_kana = null;
 
     #[ORM\Column(length: 180)]
     #[Assert\NotBlank(message: '新しいメールアドレスで記入してください')]
@@ -72,8 +87,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    
-    private ?string $name_kana = null;
 
     public function getId(): ?int
     {
