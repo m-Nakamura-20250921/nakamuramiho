@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}会員登録完了{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1 class="title">ユーザー登録が完了しました</h1>
+
+    <button class="top_btn">
+        <a href="{{path('user')}}">トップへ戻る</a>
+    </button>
+    <br>
+    <button class="login_btn">
+        <a href="{{path('login')}}">ログイン</a>
+    </button>
+
+</div>
+{% endblock %}

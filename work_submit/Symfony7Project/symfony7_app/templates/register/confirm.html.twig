@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="example-wrapper">
-    <h1>以下の内容で登録します</h1>
+    <h1 class="title">以下の内容で登録します</h1>
 
     {{ form_start(confirm_form) }}
         {{ form_row(confirm_form._token) }}
@@ -23,8 +23,8 @@
             <span class="input_label">メールアドレス：</span>
             {{ confirm_form.email.vars.value }}
         </div>
-
-        <div class="buttons_area" style="margin-top: 20px;">
+        
+        <div class="buttons_area">
             <button type="submit" name="submit_action" value="complete" class="submit_btn">登録</button>
             <button type="submit" name="submit_action" value="back" class="submit_btn">戻る</button>
         </div>

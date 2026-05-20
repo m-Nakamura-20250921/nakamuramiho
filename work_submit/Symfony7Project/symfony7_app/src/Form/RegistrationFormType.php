@@ -25,11 +25,11 @@ class RegistrationFormType extends AbstractType
                 'label' => 'メールアドレス'
             ])
             ->add('password', PasswordType::class, [
-                'label' => 'パスワード'
+                'label' => 'パスワード',
+                'property_path' => 'password_hash',
             ])
             ->add('password_confirm', PasswordType::class, [
                 'label' => 'パスワード（確認）',
-                'mapped' => false, 
             ])
         ;
     }

@@ -9,7 +9,7 @@
 </style> -->
 
 <div class="example-wrapper">
-    <h1>会員登録</h1>
+    <h1 class="title">会員登録</h1>
     {{ form_start(form) }}
 
         {{ form_row(form._token) }}
@@ -39,22 +39,24 @@
             <!-- パスワード -->
             <div class="input_row">
                 <label class="input_label" for="password">パスワード</label>
-                {{ form_widget(form.password, {'attr': {'class': 'text_input_w100'}}) }}
+                <input class="text_input_w100" id="password" type="password" name="{{ form.password.vars.full_name }}">
                 {{ form_errors(form.password) }}
+                <div id="js-error-password" class="error_message"></div>
             </div>
 
             <!-- パスワード確認 -->
             <div class="input_row">
                 <label class="input_label" for="password">パスワード（確認）</label>
-                {{ form_widget(form.password, {'attr': {'class': 'text_input_w100'}}) }}
-                {{ form_errors(form.password) }}
+                <input class="text_input_w100" id="password_confirm" type="password" name="password_confirm">
+                <div id="js-error-confirm" class="error_message"></div>
             </div>
 
             <!-- 送信ボタン -->
             <input class="submit_btn" type="submit" value="送信">
-{{ form_end(form, { 'render_rest': false }) }}
+    {{ form_end(form, { 'render_rest': false }) }}
 </div>
 {% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('js/validation.js') }}"></script>
 {% endblock %}
 

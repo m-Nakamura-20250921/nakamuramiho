@@ -58,10 +58,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:'パスワードを記入してください')]
+    #[Assert\Regex(
+        pattern:'/^[a-zA-Z0-9]+$/',
+        message:'半角英数字で記入してください',
+    )]
+    #[Assert\Length(
+        min:8,
+        max:20,
+        minMessage:'8文字以上で記入してください',
+        maxMessage:'20文字以下で記入してください',
+    )]
     private ?string $password_hash = null;
+
+    private ?string $password_confirm = null;
+
+    public function getPasswordConfirm(): ?string
+    {
+        return $this->password_confirm;
+    }
+
+    public function setPasswordConfirm(?string $password_confirm): self
+    {
+        $this->password_confirm = $password_confirm;
+        return $this;
+    }
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updated_at = null;
@@ -75,13 +104,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $status = 0;
 
-    #[ORM\Column(length: 255)]
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
@@ -98,7 +126,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(?string $email): static
     {
         $this->email = $email;
 
@@ -145,7 +173,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password_hash;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(?string $password): static
     {
         $this->password = $password;
 
@@ -155,20 +183,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
      */
-    public function __serialize(): array
-    {
-        $data = (array) $this;
-        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+    // public function __serialize(): array
+    // {
+    //     $data = (array) $this;
+    //     $data["\0".self::class."\0password_hash"] = hash('crc32c', $this->password_hash);
 
-        return $data;
-    }
+    //     return $data;
+    // }
 
     public function getPasswordHash(): ?string
     {
         return $this->password_hash;
     }
 
-    public function setPasswordHash(string $password_hash): static
+    public function setPasswordHash(?string $password_hash): static
     {
         $this->password_hash = $password_hash;
 
@@ -240,7 +268,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->name_kana;
     }
 
-    public function setNameKana(string $name_kana): static
+    public function setNameKana(?string $name_kana): static
     {
         $this->name_kana = $name_kana;
 

@@ -31,13 +31,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (passwordEl.value !== confirmEl.value && confirmEl.value !== "") {
             // 一致しない場合：メッセージを表示
             errorDisplay.textContent = "パスワードが一致しません。";
+            return false;
         } else {
             // 一致した場合：メッセージを隠す
             errorDisplay.textContent = "";
+            return true;
         }
     }
 
     // 入力するたびにチェック
     passwordEl.addEventListener("input", CheckPassword);
     confirmEl.addEventListener("input", CheckPassword);
+
+    // フォームが送信されようとしたときに割り込む
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            // 一致していない・空っぽ
+            if (passwordEl.value !== confirmEl.value) {
+                // 次のページ飛ばないように
+                e.preventDefault(); 
+            }
+        });
+    };
 });
