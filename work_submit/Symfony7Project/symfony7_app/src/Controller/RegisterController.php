@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class RegisterController extends AbstractController
@@ -37,7 +38,7 @@ final class RegisterController extends AbstractController
 
     // 確認画面
     #[Route('/register/confirm', name: 'register.confirm', methods: ['GET','POST'])]
-    public function confirm(Request $request, EntityManagerInterface $entityManager): Response
+    public function confirm(Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $passwordHasher): Response
     {
         $session = $request->getSession();
         $user = $session->get('register_data');
@@ -56,9 +57,16 @@ final class RegisterController extends AbstractController
             }
 
             if ($action === 'complete') {
+                // パスワードをハッシュ化
+                $plainPassword = $user->getPasswordHash();
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+
                 $user->setCreatedAt(new \DateTimeImmutable());
                 $user->setUpdatedAt(new \DateTimeImmutable());
                 $user->setRole('ROLE_USER');
+
+                // 保存直前ハッシュ化
+                $user->setPasswordHash($hashedPassword);
 
                 $entityManager->persist($user);
                 $entityManager->flush(); //DB保存
