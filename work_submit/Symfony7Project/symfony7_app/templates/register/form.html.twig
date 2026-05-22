@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% form_theme form _self %}
 
 {% block title %}会員登録画面{% endblock %}
 
@@ -8,52 +9,55 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style> -->
 
-<div class="example-wrapper">
-    <h1 class="title">会員登録</h1>
-    {{ form_start(form) }}
+<div class="example-wrapper row justify-content-center mt-2">
+    <div class="col-md-6">
+        <div class="p-3">
+            <h1 class="h3 mb-3 text-center font_title  border-bottom">会員登録</h1>
+            {{ form_start(form) }}
+                <div class="d-block w-100 clearfix card shadow-sm border-0 bg-light p-4 mb-4">
+                    {{ form_row(form._token) }}
+                        <!-- 名前 -->
+                        <div class="form-group mb-3">
+                            <label class ="input_label d-block" for="name">名前</label>
+                            {{ form_widget(form.name, {'attr': {'class': 'text_input form-control'}}) }}
+                            {{ form_errors(form.name) }}
+                        </div>
 
-        {{ form_row(form._token) }}
-            <!-- 名前 -->
-            <div class="input_row">
-                <div class="div_w_95">
-                    <label class ="input_label" for="name">名前</label>
-                    {{ form_widget(form.name, {'attr': {'class': 'text_input'}}) }}
-                    {{ form_errors(form.name) }}
+                        <!-- 名前（カナ） -->
+                        <div class="form-group mb-3">
+                            <label class ="input_label d-block" for="name">名前（カナ）</label>
+                            {{ form_widget(form.name_kana, {'attr': {'class': 'text_input form-control'}}) }}
+                            {{ form_errors(form.name_kana) }}
+                        </div>
+
+                        <!-- メールアドレス -->
+                        <div class="form-group mb-3">
+                            <label class="input_label d-block" for="email">メールアドレス</label>
+                            {{ form_widget(form.email, {'attr': {'class': 'text_input_w100 form-control'}}) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+
+                        <!-- パスワード -->
+                        <div class="form-group mb-3">
+                            <label class="input_label d-block" for="password">パスワード</label>
+                            <input class="form-control" id="password" type="password" name="{{ form.password.vars.full_name }}">
+                            {{ form_errors(form.password) }}
+                            <div id="js-error-password" class="error_message"></div>
+                        </div>
+
+                        <!-- パスワード確認 -->
+                        <div class="form-group mb-3">
+                            <label class="input_label d-block" for="password">パスワード（確認）</label>
+                            <input class="form-control" id="password_confirm" type="password" name="password_confirm">
+                            <div id="js-error-confirm" class="error_message"></div>
+                        </div>
+
+                        <!-- 送信ボタン -->
+                        <input class="btn btn-primary d-block mx-auto" type="submit" value="送信">
                 </div>
-            </div>
-
-            <!-- 名前（カナ） -->
-            <div class="input_row">
-                <label class ="input_label" for="name">名前（カナ）</label>
-                {{ form_widget(form.name_kana, {'attr': {'class': 'text_input'}}) }}
-                {{ form_errors(form.name_kana) }}
-            </div>
-
-            <!-- メールアドレス -->
-            <div class="input_row">
-                <label class="input_label" for="email">メールアドレス</label>
-                {{ form_widget(form.email, {'attr': {'class': 'text_input_w100'}}) }}
-                {{ form_errors(form.email) }}
-            </div>
-
-            <!-- パスワード -->
-            <div class="input_row">
-                <label class="input_label" for="password">パスワード</label>
-                <input class="text_input_w100" id="password" type="password" name="{{ form.password.vars.full_name }}">
-                {{ form_errors(form.password) }}
-                <div id="js-error-password" class="error_message"></div>
-            </div>
-
-            <!-- パスワード確認 -->
-            <div class="input_row">
-                <label class="input_label" for="password">パスワード（確認）</label>
-                <input class="text_input_w100" id="password_confirm" type="password" name="password_confirm">
-                <div id="js-error-confirm" class="error_message"></div>
-            </div>
-
-            <!-- 送信ボタン -->
-            <input class="submit_btn" type="submit" value="送信">
-    {{ form_end(form, { 'render_rest': false }) }}
+            {{ form_end(form, { 'render_rest': false }) }}
+        </div>
+    </div>
 </div>
 {% block javascripts %}
     {{ parent() }}

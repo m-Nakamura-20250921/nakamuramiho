@@ -13,30 +13,37 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Logout</a>
         </div>
     {% endif %} -->
+    <div class="row justify-content-center mt-2">
+        <div class="col-md-6">
+            <div class="p-3">
+                <h1 class="h3 mb-3 text-center font_title  border-bottom">ログイン画面</h1>
+                <div class="card shadow-sm border-0 bg-light p-4 mb-4">
+                    <div class = "form-group mb-3">
+                        <label for="inputEmail">メールアドレス</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    </div>
+                    <div class = "input_row">
+                        <label for="inputPassword">パスワード</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
 
-    <h1 class="h3 mb-3 font-weight-normal">ログイン画面</h1>
-    <div class = "form-group mb-3">
-        <label for="inputEmail">メールアドレス</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    {% if error %}
+                        <div class="alert alert-danger">パスワードが異なります。正しいパスワードを入力してください。</div>
+                    {% endif %}
+
+                    <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+                    <button class="btn btn-lg btn-primary mt-4 d-block mx-auto" type="submit">ログイン</button>
+                
+                    <p class="text-end small">
+                        <a href="{{path('register.form')}}">会員登録はこちら</a>
+                    </p>
+                    <p class="text-end small">
+                        <a href="{{path('password_reset')}}">パスワード再設定はこちら</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class = "input_row">
-        <label for="inputPassword">パスワード</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    </div>
-
-    {% if error %}
-        <div class="alert alert-danger">パスワードが異なります。正しいパスワードを入力してください。</div>
-    {% endif %}
-
-    <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-
-    <button class="btn btn-lg btn-primary" type="submit">ログイン</button>
-    
-    <p class="link">
-      <a href="{{path('register.form')}}">会員登録はこちら</a>
-    </p>
-    <p class="link">
-      <a href="{{path('password_reset')}}">パスワード再設定はこちら</a>
-    </p>
 </form>
 {% endblock %}
