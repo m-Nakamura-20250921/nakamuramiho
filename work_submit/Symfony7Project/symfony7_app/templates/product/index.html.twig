@@ -3,18 +3,147 @@
 {% block title %}Hello ProductController!{% endblock %}
 
 {% block body %}
-<style>
+<!-- <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+</style> -->
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="page_container">
+        <div class="l-page_sidenav">
+            <aside class="page_nav op_search">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/mac-user/Desktop/stand-by/code-strategy-work/work_submit/Symfony7Project/symfony7_app/src/Controller/ProductController.php</code></li>
-        <li>Your template at <code>/Users/mac-user/Desktop/stand-by/code-strategy-work/work_submit/Symfony7Project/symfony7_app/templates/product/index.html.twig</code></li>
-    </ul>
+                <div class="side_section">
+                    <div>キーワードから探す</div>
+                    <div>
+                        <input type="search" name="keyword" value="" autocomplete="off"
+                        placeholder="商品検索" targetform="search_master">
+                        <button type="button" data-targetform="search_master">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="7" cy="7" r="5"></circle>
+                                <line x1="14" y1="14" x2="10.5" y2="10.5"></line>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="side_section_sex">
+                        <div>性別から探す</div>
+                        <ul>
+                            <li>
+                                <label>
+                                    <input type="radio" name="gender" value="0" checked>すべて
+                                </label>
+                            </li>
+                            
+                            <li>
+                                <label>
+                                    <input type="radio" name="gender" value="1" checked>レディース
+                                </label>
+                            </li>
+
+                            <li>
+                                <label>
+                                    <input type="radio" name="gender" value="2" checked>メンズ
+                                </label>
+                            </li>
+
+                            <li>
+                                <label>
+                                    <input type="radio" name="gender" value="3" checked>キッズ
+                                </label>
+                            </li>
+                    </div>
+
+                    <div class="side_section_category">
+                        <div>カテゴリから探す</div>
+                        <ui>
+                            <li>
+                                <label>
+                                    <input type="radio" name="category" value="tops" checked>トップス
+                                </label>                               
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="radio" name="category" value="bottoms" checked>ボトムス
+                                </label>                               
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="radio" name="category" value="skirt" checked>スカート
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="radio" name="category" value="dress" checked>ワンピース
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="radio" name="category" value="outer" checked>アウター
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="radio" name="category" value="shoes" checked>シューズ
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="radio" name="category" value="bag" checked>バッグ
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="radio" name="category" value="accessory" checked>アクセサリー
+                                </label>
+                            </li>
+                        </ui>                        
+                    </div>
+
+                    <div class="side_section_color">
+                        <div>カラー</div>
+                        <div class="status is_nomany" data-def="すべて">
+                            <!-- すべて -->
+                        </div>
+                    </div>
+
+                    <div class="price_section_price">
+                        <div>価格</div>
+                        <div class="range_container">
+                            <div class="form_control">
+                                <div class="form_control_container">
+                                    <div class="form_control_container__time">Min</div>
+                                    <!-- <input class="form_control_container__time__input" type="number" id="fromInput" value="10" min="0" max="100"/> -->
+                                </div>
+                                <div class="form_control_container">
+                                    <div class="form_control_container__time">Max</div>
+                                    <!-- <input class="form_control_container__time__input" type="number" id="toInput" value="40" min="0" max="100"/> -->
+                                </div>
+                            </div>
+                            <div class="sliders_control">
+                                <input id="fromSlider" type="range" value="10" min="0" max="100"/>
+                                <input id="toSlider" type="range" value="40" min="0" max="100"/>
+                            </div>
+                        </div>
+
+                    <!-- <div class="price-slider-container">
+                        <input type="range" id="priceRange" min="0" max="999999999" step="50" value="0">
+                        <div class="price-display">
+                            ¥<span id="priceValue">0</span>
+                        </div>
+                    </div> -->
+                </div>
+            </aside>
+
+            <!-- 一覧 -->
+            <div>
+                <div>一覧</div>
+                <div class="product-grid">
+                   
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

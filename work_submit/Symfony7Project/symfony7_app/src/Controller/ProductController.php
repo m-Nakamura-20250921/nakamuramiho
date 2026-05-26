@@ -17,8 +17,28 @@ final class ProductController extends AbstractController
         // 商品検索
         $keyword = $request->query->get('keyword', '');
 
+        // 性別
+        $gender = $request->query->get('gender', '99');
+        // 条件分岐・DBからデータ取得
+        if($gender !== ""){
+            $products = $productRepository->findBy(['gender' => $gender]);
+        } else {
+            // 「すべて」の場合は全件取得
+            $products = $productRepository->findAll();
+        }
+
+
         return $this->render('product/index.html.twig', [
-            'controller_name' => 'ProductController',
+            'products' => $products,
         ]);
     }
+
+    // public function index(Request $request, ProductRepository $productRepository): Response
+    // {   
+    //     $products = $productRepository->findAll();
+
+    //     return $this->render('product/index.html.twig', [
+    //         'products' => $products,
+    //     ]);
+    // }
 }
