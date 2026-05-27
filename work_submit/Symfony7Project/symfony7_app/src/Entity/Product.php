@@ -13,20 +13,35 @@ class Product
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255,nullable: true)]
-    private ?string $gender = null;
-
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?int $price = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $imageUrl = null;
+    #[ORM\Column(length: 255)]
+    private ?string $description = null;
 
     #[ORM\Column(length: 255)]
     private ?string $category = null;
+
+    #[ORM\Column(type: 'bigint')]
+    private ?string $price = null;
+
+    #[ORM\Column]
+    private ?int $stock_quantity = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updated_at = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image_path = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $deleted_at = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $gender = null;
 
     #[ORM\Column(length: 255)]
     private ?string $color = null;
@@ -34,18 +49,6 @@ class Product
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    public function setGender(?string $gender): static
-    {
-        $this->gender = $gender;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -60,26 +63,14 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getDescription(): ?string
     {
-        return $this->price;
+        return $this->description;
     }
 
-    public function setPrice(int $price): static
+    public function setDescription(string $description): static
     {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getImageUrl(): ?string
-    {
-        return $this->imageUrl;
-    }
-
-    public function setImageUrl(?string $imageUrl): static
-    {
-        $this->imageUrl = $imageUrl;
+        $this->description = $description;
 
         return $this;
     }
@@ -92,6 +83,90 @@ class Product
     public function setCategory(string $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string $price): static
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getStockQuantity(): ?int
+    {
+        return $this->stock_quantity;
+    }
+
+    public function setStockQuantity(int $stock_quantity): static
+    {
+        $this->stock_quantity = $stock_quantity;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): static
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getImagePath(): ?string
+    {
+        return $this->image_path;
+    }
+
+    public function setImagePath(string $image_path): static
+    {
+        $this->image_path = $image_path;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deleted_at;
+    }
+
+    public function setDeletedAt(\DateTimeImmutable $deleted_at): static
+    {
+        $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): static
+    {
+        $this->gender = $gender;
 
         return $this;
     }

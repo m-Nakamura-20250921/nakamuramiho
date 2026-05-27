@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+{% block title %}商品一覧{% endblock %}
 
 {% block body %}
 <!-- <style>
@@ -12,134 +12,210 @@
     <div class="page_container">
         <div class="l-page_sidenav">
             <aside class="page_nav op_search">
+                
+                <form action="/product" method="GET">
+                    <div class="side_section">
+                        <div>キーワードから探す</div>
+                        <div>
+                            <input type="search" name="keyword" value="" autocomplete="off"
+                            placeholder="商品検索" targetform="search_master">
+                            <button type="button" data-targetform="search_master">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="7" cy="7" r="5"></circle>
+                                    <line x1="14" y1="14" x2="10.5" y2="10.5"></line>
+                                </svg>
+                            </button>
+                        </div>
 
-                <div class="side_section">
-                    <div>キーワードから探す</div>
+                        <div class="side_section_sex">
+                            <div>性別から探す</div>
+                            <ul>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="gender" value="0">すべて
+                                    </label>
+                                </li>
+                                
+                                <li>
+                                    <label>
+                                        <input type="radio" name="gender" value="1">レディース
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label>
+                                        <input type="radio" name="gender" value="2">メンズ
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label>
+                                        <input type="radio" name="gender" value="3">キッズ
+                                    </label>
+                                </li>
+                            </ui>
+                        </div>
+
+                        <div class="side_section_category">
+                            <div>カテゴリから探す</div>
+                            <ui>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="category" value="tops">トップス
+                                    </label>                               
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="category" value="bottoms">ボトムス
+                                    </label>                               
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="category" value="skirt">スカート
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="category" value="dress">ワンピース
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="category" value="outer">アウター
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="category" value="shoes">シューズ
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="category" value="bag">バッグ
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="radio" name="category" value="accessory">アクセサリー
+                                    </label>
+                                </li>
+                            </ui>                        
+                        </div>
+
+                        <div class="side_section_color">
+                            <div>カラー</div>
+                            <details>
+                                <summary>すべて</summary>
+                                <div class="color-options">
+                                    <label class="color-item">
+                                        <input type="radio" name="color" value="black">
+                                        <span class="badge rounded-pill bg-dark text-white px-3 py-2"></span>
+                                        <span class="color-name">ブラック系</span>
+                                    </label>
+                                    <label class="color-item">
+                                        <input type="radio" name="color" value="white">
+                                        <span class="chip chip-whhite"></span>
+                                        <span class="color-name">ホワイト系</span>
+                                    </label>
+                                    <label class="color-item">
+                                        <input type="radio" name="color" value="red">
+                                        <span class="chip chip-red"></span>
+                                        <span class="color-name">レッド系</span>
+                                    </label>
+                                    <label class="color-item">
+                                        <input type="radio" name="color" value="blue">
+                                        <span class="chip chip-blue"></span>
+                                        <span class="color-name">ブルー系</span>
+                                    </label>
+                                    <label class="color-item">
+                                        <input type="radio" name="color" value="グリーン">
+                                        <span class="chip chip-green"></span>
+                                        <span class="color-name">グリーン系</span>
+                                    </label> 
+                                </div>                     
+                            </details>
+                        </div>
+
+                        <div class="price_section_price">
+                            <div>価格</div>
+                            <div class="range_container">
+                                <div class="form_control">
+                                    <div class="form_control_container">
+                                        <!-- <div class="form_control_container__time">Min</div> -->
+                                        <!-- <input class="form_control_container__time__input" type="number" id="fromInput" value="10" min="0" max="100"/> -->
+                                    </div>
+                                    <div class="form_control_container">
+                                        <!-- <div class="form_control_container__time">Max</div> -->
+                                        <!-- <input class="form_control_container__time__input" type="number" id="toInput" value="40" min="0" max="100"/> -->
+                                    </div>
+                                </div>
+                                <div class="sliders_control">
+                                    <input id="fromSlider" name="min_price" type="range" value="0" min="0" max="100"/>
+                                    <input id="toSlider" name="max_price" type="range" value="100" min="0" max="100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div>
-                        <input type="search" name="keyword" value="" autocomplete="off"
-                        placeholder="商品検索" targetform="search_master">
-                        <button type="button" data-targetform="search_master">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="7" cy="7" r="5"></circle>
-                                <line x1="14" y1="14" x2="10.5" y2="10.5"></line>
-                            </svg>
-                        </button>
+                        <button type="submit" class="btn-search">検索</button>
                     </div>
-
-                    <div class="side_section_sex">
-                        <div>性別から探す</div>
-                        <ul>
-                            <li>
-                                <label>
-                                    <input type="radio" name="gender" value="0" checked>すべて
-                                </label>
-                            </li>
-                            
-                            <li>
-                                <label>
-                                    <input type="radio" name="gender" value="1" checked>レディース
-                                </label>
-                            </li>
-
-                            <li>
-                                <label>
-                                    <input type="radio" name="gender" value="2" checked>メンズ
-                                </label>
-                            </li>
-
-                            <li>
-                                <label>
-                                    <input type="radio" name="gender" value="3" checked>キッズ
-                                </label>
-                            </li>
-                    </div>
-
-                    <div class="side_section_category">
-                        <div>カテゴリから探す</div>
-                        <ui>
-                            <li>
-                                <label>
-                                    <input type="radio" name="category" value="tops" checked>トップス
-                                </label>                               
-                            </li>
-                            <li>
-                                <label>
-                                    <input type="radio" name="category" value="bottoms" checked>ボトムス
-                                </label>                               
-                            </li>
-                            <li>
-                                <label>
-                                    <input type="radio" name="category" value="skirt" checked>スカート
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input type="radio" name="category" value="dress" checked>ワンピース
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input type="radio" name="category" value="outer" checked>アウター
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input type="radio" name="category" value="shoes" checked>シューズ
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input type="radio" name="category" value="bag" checked>バッグ
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    <input type="radio" name="category" value="accessory" checked>アクセサリー
-                                </label>
-                            </li>
-                        </ui>                        
-                    </div>
-
-                    <div class="side_section_color">
-                        <div>カラー</div>
-                        <div class="status is_nomany" data-def="すべて">
-                            <!-- すべて -->
-                        </div>
-                    </div>
-
-                    <div class="price_section_price">
-                        <div>価格</div>
-                        <div class="range_container">
-                            <div class="form_control">
-                                <div class="form_control_container">
-                                    <div class="form_control_container__time">Min</div>
-                                    <!-- <input class="form_control_container__time__input" type="number" id="fromInput" value="10" min="0" max="100"/> -->
-                                </div>
-                                <div class="form_control_container">
-                                    <div class="form_control_container__time">Max</div>
-                                    <!-- <input class="form_control_container__time__input" type="number" id="toInput" value="40" min="0" max="100"/> -->
-                                </div>
-                            </div>
-                            <div class="sliders_control">
-                                <input id="fromSlider" type="range" value="10" min="0" max="100"/>
-                                <input id="toSlider" type="range" value="40" min="0" max="100"/>
-                            </div>
-                        </div>
-
-                    <!-- <div class="price-slider-container">
-                        <input type="range" id="priceRange" min="0" max="999999999" step="50" value="0">
-                        <div class="price-display">
-                            ¥<span id="priceValue">0</span>
-                        </div>
-                    </div> -->
-                </div>
+                </form>
             </aside>
 
             <!-- 一覧 -->
             <div>
                 <div>一覧</div>
-                <div class="product-grid">
-                   
+                <div>
+                    <div>並び順</div>
+                    <div>
+                        <select>
+                            <option value="1">安い順</option>
+                            <option value="2">高い順</option>
+                        </select>
+                    </div>
+                </div>
+
+                {# 商品一覧グリッド #}
+                <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; padding: 16px; background-color: #fff;">
+                    
+                    {% for product in products %}
+                        <!-- 商品カード1枚分　仮スタイル仮 -->
+                        <div style="display: flex; flex-direction: column; background: #fff; font-family: sans-serif;">
+                            
+                            <!-- 商品画像エリア（仮で縦長比率 3:4） -->
+                            <div class="image-wrapper" style="position: relative; width: 100%; padding-top: 133.33%; background-color: #f5f5f5; border-radius: 4px; overflow: hidden;">
+                                <img src="{{ product.imagePath }}" alt="{{ product.name }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+
+                            <!-- 商品テキスト詳細エリア -->
+                            <div class="info-wrapper" style="padding: 8px 0;">                                
+                                <!-- 商品名 -->
+                                <div class="product-name">
+                                    {{ product.name }}
+                                </div>
+                                
+                                <!-- 価格 -->
+                                <div class="price-box" style="display: flex; align-items: baseline; gap: 6px;">
+                                    <!-- 税込計算 -->
+                                    {% set taxRate = 0.10 %}
+                                    <!-- 端数切り捨て -->
+                                    {% set taxIncludedPrice = (product.price * (1 + taxRate)) | round(0, 'floor') %}
+                                    
+                                    <!-- 税込価格表示 -->
+                                    <span>
+                                        ¥{{ taxIncludedPrice|number_format }}
+                                    </span>
+                                    
+                                    <span>(税込)</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% else %}
+                        <p style="grid-column: 1 / -1; text-align: center; color: #999; padding: 40px 0;">
+                            表示する商品がありません。
+                        </p>
+                    {% endfor %}
 
                 </div>
             </div>
