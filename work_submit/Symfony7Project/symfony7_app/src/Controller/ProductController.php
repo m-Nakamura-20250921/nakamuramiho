@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductSearchType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,38 +15,42 @@ final class ProductController extends AbstractController
     #[Route('/product', name: 'product_index',methods:['GET'])]
     public function index(Request $request, ProductRepository $productRepository): Response
     {   
-        $keyword = $request->query->get('keyword', '');
-        $gender  = $request->query->get('gender', '0'); // 「すべて」の初期値をHTMLに合わせて0に
-        $category = $request->query->get('category', '');
-        $color    = $request->query->get('color', '');
-        
-        // 性別条件分岐・DBからデータ取得
-        if($gender !== ""){
-            $products = $productRepository->findBy(['gender' => $gender]);
-        } else {
-            // 「すべて」の場合は全件取得
-            $products = $productRepository->findAll();
+        // 作成済みのFormクラスを生成
+        $form = $this->createForm(ProductSearchType::class);
+
+        // URLを自動に読み込み
+        $form->handleRequest($request);
+
+        // 検索条件　空の配列
+        $criteria = [];
+
+        // フォームが送信されていたら条件を組み立て
+        if ($form->isSubmitted() && $form->isValid()) {
+            // フォームから入力された値を一括で取得
+            $searchData = $form->getData();
+
+            // 性別
+            if (isset($searchData['gender']) && $searchData['gender'] !== '0' && $searchData['gender'] !== '') {
+                $criteria['gender'] = $searchData['gender'];
+            }
+
+            // カテゴリ
+            if (!empty($searchData['category'])) {
+                $criteria['category'] = $searchData['category'];
+            }
+
+            // カラー
+            if (!empty($searchData['color'])) {
+                $criteria['color'] = $searchData['color'];
+            }
         }
 
-        // カテゴリー　もしカテゴリが選択されていたら、そのカテゴリで絞り込む
-        if($category !== ''){
-            // データベースの category カラムが一致するものを検索
-            $products = $productRepository->findBy(['category' => $category]);
-        }else{
-            // カテゴリが選ばれていない（初期表示など）なら、すべて取得
-            $products = $productRepository->findAll();
-        }
-
-        // カラー
-        if($color !==''){
-            $products = $productRepository->findBy(['color' => $color]);
-        }else{
-            $products = $productRepository->findAll();
-        }
-
+        // 条件を渡す
+        $products = $productRepository->findBy($criteria);
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
+            'search_form' => $form->createView(),
         ]);
     }
 }

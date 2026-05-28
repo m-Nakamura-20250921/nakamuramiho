@@ -13,12 +13,17 @@
         <div class="l-page_sidenav">
             <aside class="page_nav op_search">
                 
-                <form action="/product" method="GET">
+                {{ form_start(search_form, {'attr': {'id': 'search_form'}}) }}
                     <div class="side_section">
                         <div>キーワードから探す</div>
                         <div>
-                            <input type="search" name="keyword" value="" autocomplete="off"
-                            placeholder="商品検索" targetform="search_master">
+                            <input type="search" 
+                                name="{{ search_form.keyword.vars.full_name }}" 
+                                value="{{ search_form.keyword.vars.value }}" 
+                                autocomplete="off"
+                                placeholder="商品検索" 
+                                targetform="search_master">
+
                             <button type="button" data-targetform="search_master">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="7" cy="7" r="5"></circle>
@@ -32,74 +37,74 @@
                             <ul>
                                 <li>
                                     <label>
-                                        <input type="radio" name="gender" value="0">すべて
+                                        {{ form_widget(search_form.gender[0]) }}すべて
                                     </label>
                                 </li>
                                 
                                 <li>
                                     <label>
-                                        <input type="radio" name="gender" value="1">レディース
+                                        {{ form_widget(search_form.gender[1]) }}レディース
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="radio" name="gender" value="2">メンズ
+                                        {{ form_widget(search_form.gender[2]) }}メンズ
                                     </label>
                                 </li>
 
                                 <li>
                                     <label>
-                                        <input type="radio" name="gender" value="3">キッズ
+                                        {{ form_widget(search_form.gender[3]) }}キッズ
                                     </label>
                                 </li>
-                            </ui>
+                            </ul>
                         </div>
 
                         <div class="side_section_category">
                             <div>カテゴリから探す</div>
-                            <ui>
+                            <ul>
                                 <li>
                                     <label>
-                                        <input type="radio" name="category" value="tops">トップス
+                                        {{ form_widget(search_form.category[0]) }}トップス
                                     </label>                               
                                 </li>
                                 <li>
                                     <label>
-                                        <input type="radio" name="category" value="bottoms">ボトムス
+                                        {{ form_widget(search_form.category[1]) }}ボトムス
                                     </label>                               
                                 </li>
                                 <li>
                                     <label>
-                                        <input type="radio" name="category" value="skirt">スカート
+                                        {{ form_widget(search_form.category[2]) }}スカート
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input type="radio" name="category" value="dress">ワンピース
+                                        {{ form_widget(search_form.category[3]) }}ワンピース
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input type="radio" name="category" value="outer">アウター
+                                        {{ form_widget(search_form.category[4]) }}アウター
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input type="radio" name="category" value="shoes">シューズ
+                                        {{ form_widget(search_form.category[5]) }}シューズ
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input type="radio" name="category" value="bag">バッグ
+                                        {{ form_widget(search_form.category[6]) }}バッグ
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input type="radio" name="category" value="accessory">アクセサリー
+                                        {{ form_widget(search_form.category[7]) }}アクセサリー
                                     </label>
                                 </li>
-                            </ui>                        
+                            </ul>                        
                         </div>
 
                         <div class="side_section_color">
@@ -108,27 +113,27 @@
                                 <summary>すべて</summary>
                                 <div class="color-options">
                                     <label class="color-item">
-                                        <input type="radio" name="color" value="black">
+                                        {{ form_widget(search_form.color[0]) }}
                                         <span class="badge rounded-pill bg-dark text-white px-3 py-2"></span>
                                         <span class="color-name">ブラック系</span>
                                     </label>
                                     <label class="color-item">
-                                        <input type="radio" name="color" value="white">
+                                        {{ form_widget(search_form.color[1]) }}
                                         <span class="chip chip-whhite"></span>
                                         <span class="color-name">ホワイト系</span>
                                     </label>
                                     <label class="color-item">
-                                        <input type="radio" name="color" value="red">
+                                        {{ form_widget(search_form.color[2]) }}
                                         <span class="chip chip-red"></span>
                                         <span class="color-name">レッド系</span>
                                     </label>
                                     <label class="color-item">
-                                        <input type="radio" name="color" value="blue">
+                                        {{ form_widget(search_form.color[3]) }}
                                         <span class="chip chip-blue"></span>
                                         <span class="color-name">ブルー系</span>
                                     </label>
                                     <label class="color-item">
-                                        <input type="radio" name="color" value="グリーン">
+                                        {{ form_widget(search_form.color[4]) }}
                                         <span class="chip chip-green"></span>
                                         <span class="color-name">グリーン系</span>
                                     </label> 
@@ -139,27 +144,18 @@
                         <div class="price_section_price">
                             <div>価格</div>
                             <div class="range_container">
-                                <div class="form_control">
-                                    <div class="form_control_container">
-                                        <!-- <div class="form_control_container__time">Min</div> -->
-                                        <!-- <input class="form_control_container__time__input" type="number" id="fromInput" value="10" min="0" max="100"/> -->
-                                    </div>
-                                    <div class="form_control_container">
-                                        <!-- <div class="form_control_container__time">Max</div> -->
-                                        <!-- <input class="form_control_container__time__input" type="number" id="toInput" value="40" min="0" max="100"/> -->
-                                    </div>
-                                </div>
                                 <div class="sliders_control">
                                     <input id="fromSlider" name="min_price" type="range" value="0" min="0" max="100"/>
                                     <input id="toSlider" name="max_price" type="range" value="100" min="0" max="100"/>
                                 </div>
+                                <div class="form_control"></div>
                             </div>
                         </div>
                     </div>
                     <div>
                         <button type="submit" class="btn-search">検索</button>
                     </div>
-                </form>
+
             </aside>
 
             <!-- 一覧 -->
@@ -167,12 +163,7 @@
                 <div>一覧</div>
                 <div>
                     <div>並び順</div>
-                    <div>
-                        <select>
-                            <option value="1">安い順</option>
-                            <option value="2">高い順</option>
-                        </select>
-                    </div>
+                    <div>{{ form_widget(search_form.sort) }}</div>
                 </div>
 
                 {# 商品一覧グリッド #}
