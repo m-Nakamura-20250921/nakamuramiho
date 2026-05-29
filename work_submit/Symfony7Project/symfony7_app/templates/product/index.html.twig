@@ -1,0 +1,219 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}商品一覧{% endblock %}
+
+{% block body %}
+<!-- <style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style> -->
+
+<div class="example-wrapper">
+    <div class="page_container">
+        <div class="l-page_sidenav">
+            <aside class="page_nav op_search">
+                
+                {{ form_start(search_form, {'attr': {'id': 'search_form'}}) }}
+                    <div class="side_section">
+                        <div>キーワードから探す</div>
+                        <div>
+                            <input type="search" 
+                                name="{{ search_form.keyword.vars.full_name }}" 
+                                value="{{ search_form.keyword.vars.value }}" 
+                                autocomplete="off"
+                                placeholder="商品検索" 
+                                targetform="search_master">
+
+                            <button type="button" data-targetform="search_master">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="7" cy="7" r="5"></circle>
+                                    <line x1="14" y1="14" x2="10.5" y2="10.5"></line>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="side_section_sex">
+                            <div>性別から探す</div>
+                            <ul>
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.gender[0]) }}すべて
+                                    </label>
+                                </li>
+                                
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.gender[1]) }}レディース
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.gender[2]) }}メンズ
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.gender[3]) }}キッズ
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="side_section_category">
+                            <div>カテゴリから探す</div>
+                            <ul>
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.category[0]) }}トップス
+                                    </label>                               
+                                </li>
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.category[1]) }}ボトムス
+                                    </label>                               
+                                </li>
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.category[2]) }}スカート
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.category[3]) }}ワンピース
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.category[4]) }}アウター
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.category[5]) }}シューズ
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.category[6]) }}バッグ
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        {{ form_widget(search_form.category[7]) }}アクセサリー
+                                    </label>
+                                </li>
+                            </ul>                        
+                        </div>
+
+                        <div class="side_section_color">
+                            <div>カラー</div>
+                            <details>
+                                <summary>すべて</summary>
+                                <div class="color-options">
+                                    <label class="color-item">
+                                        {{ form_widget(search_form.color[0]) }}
+                                        <span class="badge rounded-pill bg-dark text-white px-3 py-2"></span>
+                                        <span class="color-name">ブラック系</span>
+                                    </label>
+                                    <label class="color-item">
+                                        {{ form_widget(search_form.color[1]) }}
+                                        <span class="chip chip-whhite"></span>
+                                        <span class="color-name">ホワイト系</span>
+                                    </label>
+                                    <label class="color-item">
+                                        {{ form_widget(search_form.color[2]) }}
+                                        <span class="chip chip-red"></span>
+                                        <span class="color-name">レッド系</span>
+                                    </label>
+                                    <label class="color-item">
+                                        {{ form_widget(search_form.color[3]) }}
+                                        <span class="chip chip-blue"></span>
+                                        <span class="color-name">ブルー系</span>
+                                    </label>
+                                    <label class="color-item">
+                                        {{ form_widget(search_form.color[4]) }}
+                                        <span class="chip chip-green"></span>
+                                        <span class="color-name">グリーン系</span>
+                                    </label> 
+                                </div>                     
+                            </details>
+                        </div>
+
+                        <div class="price_section_price">
+                            <div>価格</div>
+                            <div class="range_container">
+                                <div><span id="min_num">0</span> 〜 <span id="max_num">10000</span></div>
+                                <div class="sliders_control">
+                                    <input id="fromSlider" name="product_search[min_price]" type="range"
+                                    value="{{ price_data['min_price'] ?? 0 }}" min="0" max="10000" step='500'>
+                                    <input id="toSlider" name="product_search[max_price]" type="range" 
+                                    value="{{ price_data['max_price'] ?? 10000 }}" min="0" max="10000" step='500'>
+                                </div>
+                                <div class="form_control"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn-search">検索</button>
+                    </div>
+    
+            </aside>
+
+            <!-- 一覧 -->
+            <div>
+                <div>一覧</div>
+                <div>
+                    <div>並び順</div>
+                    <div>{{ form_widget(search_form.sort) }}</div>
+                </div>
+
+                {# 商品一覧グリッド #}
+                <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; padding: 16px; background-color: #fff;">
+                    
+                    {% for product in products %}
+                        <!-- 商品カード1枚分　仮スタイル仮 -->
+                        <div style="display: flex; flex-direction: column; background: #fff; font-family: sans-serif;">
+                            
+                            <!-- 商品画像エリア（仮で縦長比率 3:4） -->
+                            <div class="image-wrapper" style="position: relative; width: 100%; padding-top: 133.33%; background-color: #f5f5f5; border-radius: 4px; overflow: hidden;">
+                                <img src="{{ product.imagePath }}" alt="{{ product.name }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+
+                            <!-- 商品テキスト詳細エリア -->
+                            <div class="info-wrapper" style="padding: 8px 0;">                                
+                                <!-- 商品名 -->
+                                <div class="product-name">
+                                    {{ product.name }}
+                                </div>
+                                
+                                <!-- 価格 -->
+                                <div class="price-box" style="display: flex; align-items: baseline; gap: 6px;">
+                                    <!-- 税込計算 -->
+                                    {% set taxRate = 0.10 %}
+                                    <!-- 端数切り捨て -->
+                                    {% set taxIncludedPrice = (product.price * (1 + taxRate)) | round(0, 'floor') %}
+                                    
+                                    <!-- 税込価格表示 -->
+                                    <span>
+                                        ¥{{ taxIncludedPrice|number_format }}
+                                    </span>
+                                    
+                                    <span>(税込)</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% else %}
+                        <p style="grid-column: 1 / -1; text-align: center; color: #999; padding: 40px 0;">
+                            表示する商品がありません。
+                        </p>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
