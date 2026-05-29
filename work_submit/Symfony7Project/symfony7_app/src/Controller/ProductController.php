@@ -43,14 +43,30 @@ final class ProductController extends AbstractController
             if (!empty($searchData['color'])) {
                 $criteria['color'] = $searchData['color'];
             }
+
+            // ソート
+            if (!empty($searchData['sort'])) {
+                $criteria['sort'] = $searchData['sort'];
+            }
+
+            // 価格（min）
+            if (isset($searchData['min_price']) && $searchData['min_price'] !== '') {
+                $criteria['min_price'] = (int)$searchData['min_price'];
+            }
+
+            // 価格（max）
+            if (isset($searchData['max_price']) && $searchData['max_price'] !== '') {
+                $criteria['max_price'] = (int)$searchData['max_price'];
+            }
         }
 
         // 条件を渡す
-        $products = $productRepository->findBy($criteria);
+        $products = $productRepository->findProductsBySearchData($criteria);
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'search_form' => $form->createView(),
+            'price_data' => $criteria,
         ]);
     }
 }

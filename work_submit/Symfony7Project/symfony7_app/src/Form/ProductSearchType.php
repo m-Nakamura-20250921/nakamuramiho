@@ -65,20 +65,27 @@ class ProductSearchType extends AbstractType
             // 価格　スライダー
             ->add('min_price', IntegerType::class, [
                 'required' => false,
-                'attr' => ['min' => 0, 'max' => 100]
+                'data' => 0,
+                'attr' => ['min' => 0, 'max' => 100000, 'step'=>'500', 'type'=>'range']
             ])
             ->add('max_price', IntegerType::class, [
                 'required' => false,
-                'attr' => ['min' => 0, 'max' => 100]
+                'data' => 100000,
+                'attr' => ['min' => 0, 'max' => 100000, 'step'=>'500', 'type'=>'range']
             ])
             
             
             ->add('sort', ChoiceType::class, [
                 'choices' => [
+                    '新着順' => 'new_arrival',
                     '安い順' => 'price_asc',
                     '高い順' => 'price_desc',
                 ],
                 'required' => false,
+
+                // 開いた時デフォで新着順
+                'empty_data' => 'new_arrival',
+                'data' => 'new_arrival',
             ]);
     }
 

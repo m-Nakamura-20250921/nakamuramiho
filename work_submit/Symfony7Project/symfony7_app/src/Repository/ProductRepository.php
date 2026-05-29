@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -16,28 +17,36 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    //    /**
-    //     * @return Product[] Returns an array of Product objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findProductsBySearchData($searchData)
+    {
+        $qb = $this->createQueryBuilder('p');
 
-    //    public function findOneBySomeField($value): ?Product
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        // 何も選んでない時は新着
+        $sortType = $searchData['sort'] ?? 'new_arrival';
+
+        if ($sortType === 'price_asc'){
+            $qb->orderBy('p.price','ASC');
+            
+            // 昇順
+        }elseif($sortType === 'price_desc') {
+            $qb->orderBy('p.price','DESC');
+
+            // 何も選んでいない時・新着順
+        }else{
+            $qb->orderBy('p.id','DESC');
+        }
+
+        // 価格絞り込み
+        if(isset($searchData['min_price']) && $searchData['min_price'] !== ''){
+            $qb->andWhere('p.price >= :min_price')
+               ->setParameter('min_price', $searchData['min_price']);
+        }
+
+        if(isset($searchData['max_price']) && $searchData['max_price'] !== ''){
+            $qb->andWhere('p.price <= :max_price')
+               ->setParameter('max_price', $searchData['max_price']);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

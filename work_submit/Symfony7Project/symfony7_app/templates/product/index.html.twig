@@ -144,9 +144,12 @@
                         <div class="price_section_price">
                             <div>価格</div>
                             <div class="range_container">
+                                <div><span id="min_num">0</span> 〜 <span id="max_num">10000</span></div>
                                 <div class="sliders_control">
-                                    <input id="fromSlider" name="min_price" type="range" value="0" min="0" max="100"/>
-                                    <input id="toSlider" name="max_price" type="range" value="100" min="0" max="100"/>
+                                    <input id="fromSlider" name="product_search[min_price]" type="range"
+                                    value="{{ price_data['min_price'] ?? 0 }}" min="0" max="10000" step='500'>
+                                    <input id="toSlider" name="product_search[max_price]" type="range" 
+                                    value="{{ price_data['max_price'] ?? 10000 }}" min="0" max="10000" step='500'>
                                 </div>
                                 <div class="form_control"></div>
                             </div>
@@ -155,7 +158,7 @@
                     <div>
                         <button type="submit" class="btn-search">検索</button>
                     </div>
-
+    
             </aside>
 
             <!-- 一覧 -->
