@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}パスワード再設定{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center mt-2">
+    <div class="col-md-6">
+        <div class="p-3">
+            <h1 class="h3 mb-3 text-center font_title pt-5 border-bottom">パスワード再設定</h1>
+            <div class="card shadow-sm border-0 bg-light p-4 mb-4">
+                <p class="fs-5 text-center mb-3">メールアドレスと新しいパスワードを入力してください</p>
+
+                {% for message in app.flashes('error') %}
+                    <div>{{ message }}</div>
+                {% endfor %}
+
+                <form method="post">
+                    <div class="form-group mb-3">
+                        <label class="input_label d-block" for="email">メールアドレス</label>
+                        <input type="email" name="email" class="form-control bg-white text-dark border-secondary-subtle" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="input_label d-block" for="password">新しいパスワード</label>
+                        <input type="password" name="password" class="form-control bg-white text-dark border-secondary-subtle" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="input_label d-block" for="password">新しいパスワード(確認)</label>
+                        <input type="password" name="confirm_password" class="form-control bg-white text-dark border-secondary-subtle" required>
+                    </div>
+                    <div class="d-flex justify-content-evenly mt-4">
+                        <button type="submit" class="btn btn-primary">送信</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

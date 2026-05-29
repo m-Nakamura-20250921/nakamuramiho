@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./symfony7_app:/var/www/symfony7_app
+    networks:
+      - symfony_network
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./symfony7_app:/var/www/symfony7_app
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    networks:
+      - symfony_network
+
+  db:
+    image: mysql:8.0.32
+    environment: 
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: app
+      MYSQL_PASSWORD: password
+      MYSQL_DB: database
+    ports:
+      - "3306:3306"
+    networks:
+      - symfony_network
+
+networks:
+  symfony_network:
+    driver: bridge

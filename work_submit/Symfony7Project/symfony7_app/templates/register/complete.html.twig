@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}会員登録完了{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center mt-2">
+    <div class="col-md-6">
+        <h1 class="h3 mb-3 text-center font_title pt-5">ユーザー登録が完了しました</h1>
+
+        <button class="btn btn-lg btn-primary mt-5 d-block mx-auto w-50">
+            <a class="text-white text-decoration-none" href="{{path('user')}}">トップへ戻る</a>
+        </button>
+        <br>
+        <button class="btn btn-lg btn-outline-primary mt-4 d-block mx-auto w-50">
+            <a class="text-decoration-none" href="{{path('login')}}">ログイン</a>
+        </button>
+    </div>
+
+</div>
+{% endblock %}
